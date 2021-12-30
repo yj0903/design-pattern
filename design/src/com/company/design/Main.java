@@ -1,27 +1,61 @@
+// observer pattern
+// 이벤트 리스너 구현할 때 쓰이는 디자인패턴
+
 package com.company.design;
 
-import com.company.design.decorator.*;
+import com.company.design.observer.Button;
+import com.company.design.observer.IButtonListener;
 
 public class Main {
     public static void main(String[] args) {
-        ICar audi = new Audi(1000);
-        audi.showPrice();
 
-        // a3 model
-        ICar audi3 = new A3(audi, "A3");
-        audi3.showPrice();
+        Button button = new Button("버튼");
+
+        button.addListener(new IButtonListener() {
+            @Override
+            public void clickEvent(String event){
+                System.out.println(event);
+            }
+        });
+
+        button.click("메시지 전달, 클릭 1");
+        button.click("메시지 전달, 클릭 2");
+        button.click("메시지 전달, 클릭 3");
+        button.click("메시지 전달, 클릭 4");
 
 
-        // a4 model
-        ICar audi4 = new A4(audi, "A3");
-        audi4.showPrice();
-
-
-        // a5 model
-        ICar audi5 = new A5(audi, "A3");
-        audi5.showPrice();
     }
 }
+
+
+
+
+// decorator pattern
+
+//package com.company.design;
+//
+//import com.company.design.decorator.*;
+//
+//public class Main {
+//    public static void main(String[] args) {
+//        ICar audi = new Audi(1000);
+//        audi.showPrice();
+//
+//        // a3 model
+//        ICar audi3 = new A3(audi, "A3");
+//        audi3.showPrice();
+//
+//
+//        // a4 model
+//        ICar audi4 = new A4(audi, "A3");
+//        audi4.showPrice();
+//
+//
+//        // a5 model
+//        ICar audi5 = new A5(audi, "A3");
+//        audi5.showPrice();
+//    }
+//}
 
 
 
