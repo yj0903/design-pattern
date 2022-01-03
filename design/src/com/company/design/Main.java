@@ -1,31 +1,70 @@
-// observer pattern
-// 이벤트 리스너 구현할 때 쓰이는 디자인패턴
+// Facade pattern 파사드 패턴
+//
 
 package com.company.design;
 
-import com.company.design.observer.Button;
-import com.company.design.observer.IButtonListener;
+import com.company.design.fasade.Ftp;
+import com.company.design.fasade.Reader;
+import com.company.design.fasade.Writer;
 
 public class Main {
     public static void main(String[] args) {
 
-        Button button = new Button("버튼");
+// facade 디자인 사용 전, 일일히 connector와 disconnector를 생성해야 했음.
+        Ftp ftpClient = new Ftp("www.ftp.com", 22, "/home/etc");
+        ftpClient.connect();
+        ftpClient.moveDirectory();
 
-        button.addListener(new IButtonListener() {
-            @Override
-            public void clickEvent(String event){
-                System.out.println(event);
-            }
-        });
+        Writer writer = new Writer("text.tmp");
+        writer.fileConnect();
+        writer.fileWrite();
 
-        button.click("메시지 전달, 클릭 1");
-        button.click("메시지 전달, 클릭 2");
-        button.click("메시지 전달, 클릭 3");
-        button.click("메시지 전달, 클릭 4");
+        Reader reader = new Reader("text.tmp");
+        reader.fileConnect();
+        reader.fileRead();
 
-
+        ftpClient.disconnect();
+        writer.fileDisconnect();
+        reader.fileDisconnect();
     }
 }
+
+
+
+
+
+
+
+
+
+// observer pattern
+// 이벤트 리스너 구현할 때 쓰이는 디자인패턴
+
+//package com.company.design;
+//
+//import com.company.design.observer.Button;
+//import com.company.design.observer.IButtonListener;
+//
+//public class Main {
+//    public static void main(String[] args) {
+//
+//        Button button = new Button("버튼");
+//
+//        button.addListener(new IButtonListener() {
+//            @Override
+//            public void clickEvent(String event){
+//                System.out.println(event);
+//            }
+//        });
+//
+//        button.click("메시지 전달, 클릭 1");
+//        button.click("메시지 전달, 클릭 2");
+//        button.click("메시지 전달, 클릭 3");
+//        button.click("메시지 전달, 클릭 4");
+//
+//
+//    }
+//}
 
 
 
