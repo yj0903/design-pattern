@@ -5,27 +5,38 @@ package com.company.design;
 
 import com.company.design.fasade.Ftp;
 import com.company.design.fasade.Reader;
+import com.company.design.fasade.SftpClient;
 import com.company.design.fasade.Writer;
 
 public class Main {
     public static void main(String[] args) {
 
 // facade 디자인 사용 전, 일일히 connector와 disconnector를 생성해야 했음.
-        Ftp ftpClient = new Ftp("www.ftp.com", 22, "/home/etc");
-        ftpClient.connect();
-        ftpClient.moveDirectory();
+//        Ftp ftpClient = new Ftp("www.ftp.com", 22, "/home/etc");
+//        ftpClient.connect();
+//        ftpClient.moveDirectory();
+//
+//        Writer writer = new Writer("text.tmp");
+//        writer.fileConnect();
+//        writer.fileWrite();
+//
+//        Reader reader = new Reader("text.tmp");
+//        reader.fileConnect();
+//        reader.fileRead();
+//
+//        ftpClient.disconnect();
+//        writer.fileDisconnect();
+//        reader.fileDisconnect();
 
-        Writer writer = new Writer("text.tmp");
-        writer.fileConnect();
-        writer.fileWrite();
 
-        Reader reader = new Reader("text.tmp");
-        reader.fileConnect();
-        reader.fileRead();
+        // 여러 의존성을 가진(Ftp,Writer,Reader)것을 모아 새로운 인터페이스(SftpClient)를 구현. 이것을 퍼사드 패턴이라고 함.
+        SftpClient sftpClient = new SftpClient("www.ftp.com", 22, "/home/etc","text.tmp");
+        sftpClient.connect();
+        sftpClient.write();
+        sftpClient.read();
+        sftpClient.disconnect();
 
-        ftpClient.disconnect();
-        writer.fileDisconnect();
-        reader.fileDisconnect();
+
     }
 }
 
